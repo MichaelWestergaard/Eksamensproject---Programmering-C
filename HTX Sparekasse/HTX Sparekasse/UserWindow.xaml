@@ -5,13 +5,55 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HTX_Sparekasse"
         mc:Ignorable="d"
-        Title="HTX Sparekasse" Height="330" Width="400">
+        Title="HTX Sparekasse" Height="580.5" Width="938" ResizeMode="NoResize">
+
+
     <Grid>
+
         <TabControl x:Name="tabControl" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <TabItem Header="Betjeningspanel" Margin="-2,0">
+                <Grid Background="#FFE5E5E5" Margin="-2">
+                    <Separator HorizontalAlignment="Left" Height="12" Margin="0,14,0,0" VerticalAlignment="Top" Width="930"/>
+                    <Label x:Name="username" Content="Name" HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Width="127" Margin="1,-1,0,0"/>
+                    <Label x:Name="date" Content="01-01-2017" HorizontalAlignment="Left" Margin="798,0,0,0" VerticalAlignment="Top" Width="122" FontWeight="Light" TextOptions.TextHintingMode="Animated" HorizontalContentAlignment="Right"/>
+                    <ListView x:Name="account_list" HorizontalAlignment="Left" Height="216" Margin="74,58,0,0" VerticalAlignment="Top" Width="581" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Konto Navn" Width="100"  DisplayMemberBinding="{Binding Account_name}" />
+                                <GridViewColumn Header="Seneste Handling" Width="400" DisplayMemberBinding="{Binding Last_transaction}"/>
+                                <GridViewColumn Header="Sum" Width="75" DisplayMemberBinding="{Binding Money_amount}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <ListView x:Name="valuta_list" HorizontalAlignment="Left" Height="216" Margin="759,58,0,0" VerticalAlignment="Top" Width="160" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListViewItem}">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Valuta" Width="80"  DisplayMemberBinding="{Binding Valuta_name}" />
+                                <GridViewColumn Header="Pris" Width="80" DisplayMemberBinding="{Binding Value}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Label x:Name="label" Content="Valuta Oversigt" HorizontalAlignment="Left" Margin="759,21,0,0" VerticalAlignment="Top" FontSize="20"/>
+                    <Label x:Name="label_Copy" Content="Konto Oversigt" HorizontalAlignment="Left" Margin="74,21,0,0" VerticalAlignment="Top" FontSize="20"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Overførsler" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="72" Margin="90,0,-90,0">
                 <Grid Background="#FFE5E5E5" Margin="-2"/>
             </TabItem>
-            <TabItem Header="Overførsler" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="72" Margin="1,0,-1,0">
+            <TabItem Header="Valuta" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="44" Margin="89,0,-89,0">
+                <Grid Background="#FFE5E5E5" Margin="-2"/>
+            </TabItem>
+            <TabItem Header="Konto oversigt" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="90" Margin="-115,0,0,0">
                 <Grid Background="#FFE5E5E5" Margin="-2"/>
             </TabItem>
         </TabControl>

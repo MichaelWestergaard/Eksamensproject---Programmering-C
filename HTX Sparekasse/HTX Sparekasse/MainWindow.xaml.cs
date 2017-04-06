@@ -29,7 +29,8 @@ namespace HTX_Sparekasse
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            
+            Database.checkUser(usernameField.Text, passwordField.Password);
+
             if(usernameField.Text != "")
             {
                 if (passwordField.Password != "")

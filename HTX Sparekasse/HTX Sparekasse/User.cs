@@ -8,13 +8,14 @@ namespace HTX_Sparekasse
 {
     class User
     {
-		public bool login(string username, string password)
+        public static int id;
+        public static string username;
+        public static string password;
+        public static int role;
+
+        public bool login(string user, string pwd)
         {
-            if(username == "admin" && password == "123")
-            {
-                return true;
-            }
-            else if (username == "user" && password == "123")
+            if(user == username && pwd == password)
             {
                 return true;
             }

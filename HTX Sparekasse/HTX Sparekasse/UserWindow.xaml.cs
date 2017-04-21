@@ -40,6 +40,7 @@ namespace HTX_Sparekasse
             string jsonEUR = GET("http://api.fixer.io/latest?base=EUR&symbols=DKK");
             string jsonGDP = GET("http://api.fixer.io/latest?base=GBP&symbols=DKK");
 
+
             var objectUSD = JObject.Parse(jsonUSD); //Parse json string to JObject
             var objectEUR = JObject.Parse(jsonEUR);
             var objectGBP = JObject.Parse(jsonGDP);

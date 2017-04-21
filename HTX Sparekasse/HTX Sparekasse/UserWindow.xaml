@@ -58,15 +58,15 @@
                 <Grid Background="#FFE5E5E5" Margin="-2"/>
             </TabItem>
             <TabItem Header="Valuta Omregner" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="104" Margin="0,0,-60,0">
-                <Grid Background="#FFE5E5E5" Margin="-2">
-                    <TextBox x:Name="amount_input" HorizontalAlignment="Center" Height="44" Margin="207,34,218,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="450" FontSize="20" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-                    <ComboBox x:Name="from_valuta" HorizontalAlignment="Center" Margin="207,88,495,0" VerticalAlignment="Top" Width="173" Height="42" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+                <Grid Background="#FFE5E5E5" Margin="-8">
+                    <TextBox x:Name="amount_input" HorizontalAlignment="Center" Height="44" Margin="207,34,218,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="450" FontSize="20" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" TextChanged="amount_input_TextChanged"/>
+                    <ComboBox x:Name="from_valuta" HorizontalAlignment="Center" Margin="207,88,495,0" VerticalAlignment="Top" Width="173" Height="42" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SelectionChanged="from_valuta_SelectionChanged">
                         <ComboBoxItem Content="DKK" HorizontalAlignment="Left" Width="171"/>
                         <ComboBoxItem Content="USD"/>
                         <ComboBoxItem Content="EUR"/>
                         <ComboBoxItem Content="GBP"/>
                     </ComboBox>
-                    <ComboBox x:Name="to_valuta" HorizontalAlignment="Center" Margin="484,88,218,0" VerticalAlignment="Top" Width="173" Height="42" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+                    <ComboBox x:Name="to_valuta" HorizontalAlignment="Center" Margin="484,88,218,0" VerticalAlignment="Top" Width="173" Height="42" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SelectionChanged="to_valuta_SelectionChanged">
                         <ComboBoxItem Content="DKK"/>
                         <ComboBoxItem Content="USD"/>
                         <ComboBoxItem Content="EUR"/>

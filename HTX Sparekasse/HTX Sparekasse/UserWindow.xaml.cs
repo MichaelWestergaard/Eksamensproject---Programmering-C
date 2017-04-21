@@ -81,20 +81,20 @@ namespace HTX_Sparekasse
 
         private void amount_input_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (from_valuta.SelectedIndex > -1 && to_valuta.SelectedIndex > -1)
+            if (from_valuta.SelectedIndex > -1 && to_valuta.SelectedIndex > -1) //Check if the comboboxes is selected
             {
-                updateValutaConverter();
+                updateValutaConverter(); //Convert valuta
             }
         }
 
         private void from_valuta_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            updateValutaConverter();
+            updateValutaConverter(); //Convert valuta
         }
         
         private void to_valuta_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            updateValutaConverter();
+            updateValutaConverter(); //Convert valuta
         }
 
         public void updateValutaConverter()

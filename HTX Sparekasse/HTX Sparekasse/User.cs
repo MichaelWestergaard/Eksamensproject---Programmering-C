@@ -9,6 +9,7 @@ namespace HTX_Sparekasse
     class User
     {
         public static int id;
+        public static string fullname;
         public static string username;
         public static string password;
         public static int role;

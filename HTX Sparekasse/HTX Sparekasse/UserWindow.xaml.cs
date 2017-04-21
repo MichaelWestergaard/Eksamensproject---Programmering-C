@@ -29,9 +29,9 @@ namespace HTX_Sparekasse
         public UserWindow()
         {
             InitializeComponent();
-            username.Content = User.username; //Set username
+            fullname.Content = User.fullname; //Set username
             date.Content = DateTime.Now.ToString(); //Set date  
-
+            
             Database.getAccountsByUserID(User.id); //Set bank accounts for this user id
 
             account_list.ItemsSource = items; //Insert accounts into listview
@@ -49,6 +49,24 @@ namespace HTX_Sparekasse
             valuta.Add(new Valuta() { Valuta_name = "GBP", Value = Convert.ToDouble(objectGBP["rates"]["DKK"])});
 
             valuta_list.ItemsSource = valuta; //Insert valuta into listview
+
+
+            //valuta converter
+            string convertFrom;
+
+            if(amount_input.Text != "") //Check if the input field is not empty
+            {
+                if(from_valuta.SelectedIndex > -1 && to_valuta.SelectedIndex > -1) // Check if comboboxes is selected
+                {
+                    switch (from_valuta.SelectedIndex)
+                    {
+                        case 0:
+                            convertFrom = "DKK";
+                            break;
+
+                    }
+                }
+            }
 
         }
 

@@ -29,7 +29,7 @@ namespace HTX_Sparekasse
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            Database.checkUser(usernameField.Text, passwordField.Password);
+            Database.getUser(usernameField.Text, passwordField.Password);
 
             if(usernameField.Text != "")
             {
@@ -66,6 +66,13 @@ namespace HTX_Sparekasse
             }
 
             
+        }
+
+        private void button_Click_1(object sender, RoutedEventArgs e)
+        {
+            var newForm = new CreateUser();
+            newForm.Show();
+            this.Close();
         }
     }
 }

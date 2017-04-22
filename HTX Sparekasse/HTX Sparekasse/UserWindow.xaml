@@ -5,14 +5,76 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HTX_Sparekasse"
         mc:Ignorable="d"
-        Title="HTX Sparekasse" Height="330" Width="400">
+        Title="HTX Sparekasse" Height="281.166" Width="883" ResizeMode="NoResize" VerticalAlignment="Bottom">
+
+
     <Grid>
+
         <TabControl x:Name="tabControl" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <TabItem Header="Betjeningspanel" Margin="-2,0">
-                <Grid Background="#FFE5E5E5" Margin="-2"/>
+                <Grid Background="#FFE5E5E5" Margin="-2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="17*"/>
+                        <ColumnDefinition Width="108*"/>
+                    </Grid.ColumnDefinitions>
+                    <Separator HorizontalAlignment="Left" Height="12" Margin="0,14,-55,0" VerticalAlignment="Top" Width="930" Grid.ColumnSpan="2"/>
+                    <Label x:Name="fullname" Content="Name" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="127" Margin="0,-4,0,0" Grid.ColumnSpan="2"/>
+                    <Label x:Name="date" Content="01-01-2017" HorizontalAlignment="Left" Margin="614,0,0,0" VerticalAlignment="Top" Width="122" FontWeight="Light" TextOptions.TextHintingMode="Animated" HorizontalContentAlignment="Right" Grid.Column="1"/>
+                    <ListView x:Name="account_list" HorizontalAlignment="Left" Height="120" Margin="10,67,0,0" VerticalAlignment="Top" Width="581" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Grid.ColumnSpan="2">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Konto Navn" Width="100"  DisplayMemberBinding="{Binding Account_name}" />
+                                <GridViewColumn Header="Seneste Handling" Width="400" DisplayMemberBinding="{Binding Last_transaction}"/>
+                                <GridViewColumn Header="Sum" Width="75" DisplayMemberBinding="{Binding Money_amount}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <ListView x:Name="valuta_list" HorizontalAlignment="Left" Height="120" Margin="576,67,0,0" VerticalAlignment="Top" Width="160" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Grid.Column="1">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListViewItem}">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Valuta" Width="80"  DisplayMemberBinding="{Binding Valuta_name}" />
+                                <GridViewColumn Header="Pris" Width="80" DisplayMemberBinding="{Binding Value}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Label x:Name="label" Content="Valuta Kurser" HorizontalAlignment="Left" Margin="576,30,0,0" VerticalAlignment="Top" FontSize="20" Grid.Column="1"/>
+                    <Label x:Name="label_Copy" Content="Konto Oversigt" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top" FontSize="20" Grid.ColumnSpan="2"/>
+                    <Button x:Name="create_account_btn" Content="Opret Ny Konto" HorizontalAlignment="Left" Margin="10,192,0,0" VerticalAlignment="Center" Width="99"/>
+                    <Button x:Name="insert_money_btn" Content="Indsæt Penge" HorizontalAlignment="Left" Margin="114,192,0,0" VerticalAlignment="Center" Width="79" Grid.ColumnSpan="2"/>
+                    <Button x:Name="make_transaction_btn" Content="Overfør Penge" Grid.Column="1" HorizontalAlignment="Left" Margin="79,192,0,0" VerticalAlignment="Center" Width="86"/>
+                </Grid>
             </TabItem>
             <TabItem Header="Overførsler" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="72" Margin="1,0,-1,0">
                 <Grid Background="#FFE5E5E5" Margin="-2"/>
+            </TabItem>
+            <TabItem Header="Valuta Omregner" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="104" Margin="0,0,-60,0">
+                <Grid Background="#FFE5E5E5" Margin="-8">
+                    <TextBox x:Name="amount_input" HorizontalAlignment="Center" Height="44" Margin="207,34,218,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="450" FontSize="20" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" TextChanged="amount_input_TextChanged"/>
+                    <ComboBox x:Name="from_valuta" HorizontalAlignment="Center" Margin="207,88,495,0" VerticalAlignment="Top" Width="173" Height="42" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SelectionChanged="from_valuta_SelectionChanged">
+                        <ComboBoxItem Content="DKK" HorizontalAlignment="Left" Width="171"/>
+                        <ComboBoxItem Content="USD"/>
+                        <ComboBoxItem Content="EUR"/>
+                        <ComboBoxItem Content="GBP"/>
+                    </ComboBox>
+                    <ComboBox x:Name="to_valuta" HorizontalAlignment="Center" Margin="484,88,218,0" VerticalAlignment="Top" Width="173" Height="42" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SelectionChanged="to_valuta_SelectionChanged">
+                        <ComboBoxItem Content="DKK"/>
+                        <ComboBoxItem Content="USD"/>
+                        <ComboBoxItem Content="EUR"/>
+                        <ComboBoxItem Content="GBP"/>
+                    </ComboBox>
+                    <Label x:Name="label1" Content="Til" HorizontalAlignment="Center" Margin="414,83,421,0" VerticalAlignment="Top" Height="56" Width="40" FontSize="24" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <TextBox x:Name="converted_amount" HorizontalAlignment="Center" Height="44" Margin="207,135,218,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="450" FontSize="20" IsEnabled="False" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                </Grid>
             </TabItem>
         </TabControl>
 

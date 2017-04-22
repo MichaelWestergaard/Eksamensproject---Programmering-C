@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HTX_Sparekasse"
         mc:Ignorable="d"
-        Title="HTX Sparekasse - Log Ind" Height="300" Width="400" ResizeMode="NoResize">
+        Title="HTX Sparekasse - Log Ind" Height="300" Width="410" ResizeMode="NoResize">
     <Grid>
-        <Button x:Name="loginbtn" Content="Log Ind" HorizontalAlignment="Left" Margin="265,199,0,0" VerticalAlignment="Top" Width="117" Click="button_Click" Height="60"/>
-        <TextBox x:Name="usernameField" HorizontalAlignment="Left" Height="27" Margin="10,199,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" ToolTip="Username"/>
-        <Image x:Name="image" HorizontalAlignment="Left" Height="184" Margin="10,10,0,0" VerticalAlignment="Top" Width="372"/>
-        <PasswordBox x:Name="passwordField" HorizontalAlignment="Left" VerticalAlignment="Top" Height="28" Width="250" Margin="10,231,0,0"/>
+        <Button x:Name="loginbtn" Content="Log Ind" HorizontalAlignment="Left" Margin="267,150,0,0" VerticalAlignment="Top" Width="117" Click="button_Click" Height="60" TabIndex="2"/>
+        <TextBox x:Name="usernameField" HorizontalAlignment="Left" Height="27" Margin="10,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" ToolTip="Username" TabIndex="0"/>
+        <PasswordBox x:Name="passwordField" HorizontalAlignment="Left" VerticalAlignment="Top" Height="28" Width="250" Margin="10,182,0,0" TabIndex="1"/>
+        <Button x:Name="create_user_btn" Content="Opret Bruger" HorizontalAlignment="Left" Margin="10,215,0,0" VerticalAlignment="Top" Width="374" Click="button_Click_1" Height="36"/>
 
     </Grid>
 </Window>

@@ -20,8 +20,7 @@ namespace HTX_Sparekasse
     /// </summary>
     public partial class MainWindow : Window
     {
-
-        UserHandler user = new UserHandler();
+        User user = new User();
         public MainWindow()
         {
             InitializeComponent();
@@ -31,13 +30,13 @@ namespace HTX_Sparekasse
         {
             Database.getUser(usernameField.Text, passwordField.Password);
 
-            if(usernameField.Text != "")
+            if (usernameField.Text != "")
             {
                 if (passwordField.Password != "")
                 {
-                    if(user.login(usernameField.Text, passwordField.Password))
+                    if (user.login(usernameField.Text, passwordField.Password))
                     {
-                        if(usernameField.Text == "admin")
+                        if (usernameField.Text == "admin")
                         {
                             var newForm = new AdminWindow();
                             newForm.Show();
@@ -65,7 +64,7 @@ namespace HTX_Sparekasse
                 //You need username
             }
 
-            
+
         }
 
         private void button_Click_1(object sender, RoutedEventArgs e)

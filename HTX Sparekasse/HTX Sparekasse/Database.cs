@@ -13,7 +13,7 @@ namespace HTX_Sparekasse
 
         public static MySqlConnection connection = new MySqlConnection(MySQLConnectionString);
         public static MySqlCommand cmd;
-        
+
         public static double amount;
         public static int from_user_id;
         public static int to_user_id;
@@ -53,7 +53,7 @@ namespace HTX_Sparekasse
             {
                 throw;
             }
-            
+
 
         }
 
@@ -96,7 +96,7 @@ namespace HTX_Sparekasse
                 cmd.Parameters.AddWithValue("@username", username);
 
                 int result = cmd.ExecuteNonQuery(); //Check user in database table users
-                
+
                 connection.Close();
 
                 if (result == 0)
@@ -109,13 +109,13 @@ namespace HTX_Sparekasse
                     //Database does not contain an user with the given username
                     return false;
                 }
-                
+
             }
             catch (Exception)
             {
                 throw;
             }
-                       
+
         }
 
         public static void getAccountsByUserID(int id)
@@ -126,12 +126,12 @@ namespace HTX_Sparekasse
                 cmd = connection.CreateCommand();
                 cmd.CommandText = "SELECT * FROM bank_accounts WHERE user_id = @id";
                 cmd.Parameters.AddWithValue("@id", id);
-                
+
                 using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        UserWindow.items.Add(new Account() { Account_name = reader.GetString("name"), Last_transaction = reader.GetInt32("id").ToString(), Money_amount = reader.GetDouble("amount") });
+                        UserWindow.items.Add(new Account() { Account_id = reader.GetInt32("id"), Account_name = reader.GetString("name"), Last_transaction = reader.GetInt32("id").ToString(), Money_amount = reader.GetDouble("amount") });
                     }
                 }
 
@@ -163,5 +163,24 @@ namespace HTX_Sparekasse
             connection.Close();
         }
 
+        public static bool updateAccount(int account_id, double value)
+        {
+            connection.Open();
+            try
+            {
+                cmd = connection.CreateCommand();
+                cmd.CommandText = "UPDATE bank_accounts SET amount = amount + @value WHERE id = @id";
+                cmd.Parameters.AddWithValue("@id", account_id);
+                cmd.Parameters.AddWithValue("@value", value);
+                cmd.ExecuteNonQuery();
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            connection.Close();
+            return true;
+        }
     }
 }

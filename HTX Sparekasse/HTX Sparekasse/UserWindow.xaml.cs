@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Newtonsoft.Json.Linq;
 using System.Threading;
+using System.Data;
 
 namespace HTX_Sparekasse
 {
@@ -24,7 +25,7 @@ namespace HTX_Sparekasse
     public partial class UserWindow : Window
     {
         public static List<Account> items = new List<Account>();
-        public static List<Valuta> valuta = new List<Valuta>();
+        public List<Valuta> valuta = new List<Valuta>();
         public string convertFrom, convertTo;
         public double convertedValue;
 
@@ -34,9 +35,7 @@ namespace HTX_Sparekasse
             fullname.Content = User.fullname; //Set username
             date.Content = DateTime.Now.ToString(); //Set date  
             
-            Database.getAccountsByUserID(User.id); //Set bank accounts for this user id
-
-            account_list.ItemsSource = items; //Insert accounts into listview
+            updateList();
 
             string jsonUSD = GET("http://api.fixer.io/latest?base=USD&symbols=DKK"); //API call for USD, EUR and GBP
             string jsonEUR = GET("http://api.fixer.io/latest?base=EUR&symbols=DKK");
@@ -52,6 +51,13 @@ namespace HTX_Sparekasse
 
             valuta_list.ItemsSource = valuta; //Insert valuta into listview
 
+        }
+
+        public void updateList()
+        {
+            account_list.ItemsSource = null;
+            Database.getAccountsByUserID(User.id); //Get and set bank accounts for this user id
+            account_list.ItemsSource = items; //Insert accounts into listview
         }
 
         public static string GET(string url)
@@ -95,6 +101,19 @@ namespace HTX_Sparekasse
         private void to_valuta_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             updateValutaConverter(); //Convert valuta
+        }
+
+        private void account_list_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+            int list_index = account_list.SelectedIndex; //Get index of listview
+            AccountOverview.account_id = items[list_index].Account_id; //Get and set account id
+            AccountOverview.name = items[list_index].Account_name; //Get and set account name
+
+            //Go to account overview
+            var accountOverview = new AccountOverview();
+            accountOverview.Show();
+
         }
 
         public void updateValutaConverter()

@@ -20,7 +20,7 @@
                     <Separator HorizontalAlignment="Left" Height="12" Margin="0,14,-55,0" VerticalAlignment="Top" Width="930" Grid.ColumnSpan="2"/>
                     <Label x:Name="fullname" Content="Name" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="127" Margin="0,-4,0,0" Grid.ColumnSpan="2"/>
                     <Label x:Name="date" Content="01-01-2017" HorizontalAlignment="Left" Margin="614,0,0,0" VerticalAlignment="Top" Width="122" FontWeight="Light" TextOptions.TextHintingMode="Animated" HorizontalContentAlignment="Right" Grid.Column="1"/>
-                    <ListView x:Name="account_list" HorizontalAlignment="Left" Height="120" Margin="10,67,0,0" VerticalAlignment="Top" Width="581" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Grid.ColumnSpan="2">
+                    <ListView x:Name="account_list" MouseDoubleClick="account_list_MouseDoubleClick" HorizontalAlignment="Left" Height="120" Margin="10,67,0,0" VerticalAlignment="Top" Width="581" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Grid.ColumnSpan="2">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -28,7 +28,7 @@
                         </ListView.ItemContainerStyle>
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Konto Navn" Width="100"  DisplayMemberBinding="{Binding Account_name}" />
+                                <GridViewColumn Header="Konto Navn" Width="100"  DisplayMemberBinding="{Binding Path=Account_name}" />
                                 <GridViewColumn Header="Seneste Handling" Width="400" DisplayMemberBinding="{Binding Last_transaction}"/>
                                 <GridViewColumn Header="Sum" Width="75" DisplayMemberBinding="{Binding Money_amount}" />
                             </GridView>
@@ -50,8 +50,6 @@
                     <Label x:Name="label" Content="Valuta Kurser" HorizontalAlignment="Left" Margin="576,30,0,0" VerticalAlignment="Top" FontSize="20" Grid.Column="1"/>
                     <Label x:Name="label_Copy" Content="Konto Oversigt" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top" FontSize="20" Grid.ColumnSpan="2"/>
                     <Button x:Name="create_account_btn" Content="Opret Ny Konto" HorizontalAlignment="Left" Margin="10,192,0,0" VerticalAlignment="Center" Width="99"/>
-                    <Button x:Name="insert_money_btn" Content="Indsæt Penge" HorizontalAlignment="Left" Margin="114,192,0,0" VerticalAlignment="Center" Width="79" Grid.ColumnSpan="2"/>
-                    <Button x:Name="make_transaction_btn" Content="Overfør Penge" Grid.Column="1" HorizontalAlignment="Left" Margin="79,192,0,0" VerticalAlignment="Center" Width="86"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Overførsler" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="72" Margin="1,0,-1,0">

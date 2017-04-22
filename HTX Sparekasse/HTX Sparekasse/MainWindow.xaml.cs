@@ -21,7 +21,7 @@ namespace HTX_Sparekasse
     public partial class MainWindow : Window
     {
 
-        User user = new User();
+        UserHandler user = new UserHandler();
         public MainWindow()
         {
             InitializeComponent();

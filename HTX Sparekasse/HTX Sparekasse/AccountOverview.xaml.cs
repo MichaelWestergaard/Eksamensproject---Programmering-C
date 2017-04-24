@@ -19,16 +19,19 @@ namespace HTX_Sparekasse
     /// </summary>
     public partial class AccountOverview : Window
     {
+        private static UserWindow userwindow = new UserWindow();
 
-        public static UserWindow userwindow = new UserWindow();
+        public static List<Transaction> transactions = new List<Transaction>();
 
         public static int account_id;
         public static string name;
+        public static double amount;
 
         public AccountOverview()
         {
             InitializeComponent();
             account_name.Content = name;
+            money_amount.Content = amount + " kr.";
         }
 
         public void deposit_btn_Click(object sender, RoutedEventArgs e)
@@ -41,9 +44,16 @@ namespace HTX_Sparekasse
                     //Update the account in the database:
                     Database.updateAccount(account_id, deposit_value);
 
+                    //Add the transaction to the database:
+                    Database.newTransaction(0, User.id, 0, account_id, deposit_value);
+
+                    transactions.Add(new Transaction() { from_user_id = User.id, to_user_id = 0, from_account_id = account_id, to_account_id = 0, amount = deposit_value });
+
+                    transaction_list.ItemsSource = transactions;
+
                     //Updating userwindow
-                    Database.getAccountsByUserID(User.id);
                     userwindow.updateList();
+                    userwindow.account_list.Items.Refresh();
                 }
             }
         }
@@ -57,6 +67,14 @@ namespace HTX_Sparekasse
                 {
                     //Update the account in the database:
                     Database.updateAccount(account_id, withdraw_value * -1); //Make withdraw value negative
+
+
+                    //Add the transaction to the database:
+                    Database.newTransaction(User.id, 0, account_id, 0, withdraw_value);
+
+                    transactions.Add(new Transaction() { from_user_id = User.id, to_user_id = 0, from_account_id = account_id, to_account_id = 0, amount = withdraw_value });
+
+                    transaction_list.ItemsSource = transactions;
 
                     //Updating userwindow
                     Database.getAccountsByUserID(User.id);

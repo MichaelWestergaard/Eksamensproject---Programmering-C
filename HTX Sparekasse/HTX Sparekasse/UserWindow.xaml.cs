@@ -34,8 +34,9 @@ namespace HTX_Sparekasse
             InitializeComponent();
             fullname.Content = User.fullname; //Set username
             date.Content = DateTime.Now.ToString(); //Set date  
-            
-            updateList();
+
+            Database.getAccountsByUserID(User.id); //Get and set bank accounts for this user id
+            account_list.ItemsSource = items; //Insert accounts into listview
 
             string jsonUSD = GET("http://api.fixer.io/latest?base=USD&symbols=DKK"); //API call for USD, EUR and GBP
             string jsonEUR = GET("http://api.fixer.io/latest?base=EUR&symbols=DKK");
@@ -52,12 +53,18 @@ namespace HTX_Sparekasse
             valuta_list.ItemsSource = valuta; //Insert valuta into listview
 
         }
+        /*
+        public static void addToList(int id, string name, string transaction, double amount)
+        {
+            items.Add(new Account() { Account_id = id, Account_name = name, Last_transaction = transaction, Money_amount = amount });
+        }
+        */
 
         public void updateList()
         {
-            account_list.ItemsSource = null;
             Database.getAccountsByUserID(User.id); //Get and set bank accounts for this user id
             account_list.ItemsSource = items; //Insert accounts into listview
+            account_list.Items.Refresh();
         }
 
         public static string GET(string url)
@@ -109,6 +116,7 @@ namespace HTX_Sparekasse
             int list_index = account_list.SelectedIndex; //Get index of listview
             AccountOverview.account_id = items[list_index].Account_id; //Get and set account id
             AccountOverview.name = items[list_index].Account_name; //Get and set account name
+            AccountOverview.amount = items[list_index].Money_amount;
 
             //Go to account overview
             var accountOverview = new AccountOverview();

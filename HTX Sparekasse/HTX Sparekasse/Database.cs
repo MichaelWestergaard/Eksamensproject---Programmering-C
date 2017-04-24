@@ -131,6 +131,34 @@ namespace HTX_Sparekasse
                 {
                     while (reader.Read())
                     {
+                        //UserWindow.addToList(reader.GetInt32("id"), reader.GetString("name"), reader.GetInt32("id").ToString(), reader.GetDouble("amount"));
+                        UserWindow.items.Add(new Account() { Account_id = reader.GetInt32("id"), Account_name = reader.GetString("name"), Last_transaction = reader.GetInt32("id").ToString(), Money_amount = reader.GetDouble("amount") });
+                    }
+                }
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            connection.Close();
+        }
+
+        public static void getTransactions(int id, int account_id)
+        {
+            connection.Open();
+            try
+            {
+                cmd = connection.CreateCommand();
+                cmd.CommandText = "SELECT * FROM transactions WHERE from_user_id = @id OR to_user_id = @id AND from_account_id = @account_id OR to_account_id = @account_id";
+                cmd.Parameters.AddWithValue("@id", id);
+                cmd.Parameters.AddWithValue("@account_id", account_id);
+
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        //UserWindow.addToList(reader.GetInt32("id"), reader.GetString("name"), reader.GetInt32("id").ToString(), reader.GetDouble("amount"));
                         UserWindow.items.Add(new Account() { Account_id = reader.GetInt32("id"), Account_name = reader.GetString("name"), Last_transaction = reader.GetInt32("id").ToString(), Money_amount = reader.GetDouble("amount") });
                     }
                 }
@@ -163,6 +191,28 @@ namespace HTX_Sparekasse
             connection.Close();
         }
 
+        public static void newTransaction(int from_user_id, int to_user_id, int from_account_id, int to_account_id, double amount)
+        {
+            connection.Open();
+            try
+            {
+                cmd = connection.CreateCommand();
+                cmd.CommandText = "INSERT INTO transactions(from_user_id, to_user_id, from_account_id, to_account_id, amount) VALUES (@from_user_id, @to_user_id, @from_account_id, @to_account_id, @amount)";
+                cmd.Parameters.AddWithValue("@from_user_id", from_user_id);
+                cmd.Parameters.AddWithValue("@to_user_id", to_user_id);
+                cmd.Parameters.AddWithValue("@from_account_id", from_account_id);
+                cmd.Parameters.AddWithValue("@to_account_id", to_account_id);
+                cmd.Parameters.AddWithValue("@amount", amount);
+                cmd.ExecuteNonQuery();
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            connection.Close();
+        }
+
         public static bool updateAccount(int account_id, double value)
         {
             connection.Open();
@@ -182,5 +232,6 @@ namespace HTX_Sparekasse
             connection.Close();
             return true;
         }
+
     }
 }

@@ -8,7 +8,7 @@
         Title="Konto Oversigt" ResizeMode="NoResize" Height="329.642" Width="369.172">
     <Grid>
 
-        <ListView x:Name="account_list" HorizontalAlignment="Left" Height="166" Margin="12,70,0,0" VerticalAlignment="Top" Width="330" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+        <ListView x:Name="transaction_list" HorizontalAlignment="Left" Height="166" Margin="12,70,0,0" VerticalAlignment="Top" Width="330" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Center" />

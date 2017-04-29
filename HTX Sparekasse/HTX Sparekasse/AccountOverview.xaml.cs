@@ -21,11 +21,11 @@ namespace HTX_Sparekasse
     {
         private static UserWindow userwindow = new UserWindow();
 
-        public static List<Transaction> transactions = new List<Transaction>();
+        public List<Transaction> transactions = new List<Transaction>();
 
-        public static int account_id;
-        public static string name;
-        public static double amount;
+        public int account_id;
+        public string name;
+        public double amount;
 
         public AccountOverview()
         {
@@ -51,6 +51,9 @@ namespace HTX_Sparekasse
 
                     transaction_list.ItemsSource = transactions;
 
+                    //Update account total.
+                    amount += deposit_value;
+
                     //Updating userwindow
                     userwindow.updateList();
                     userwindow.account_list.Items.Refresh();
@@ -61,24 +64,54 @@ namespace HTX_Sparekasse
         private void withdraw_btn_Click(object sender, RoutedEventArgs e)
         {
             double withdraw_value;
-            if (Double.TryParse(widthdraw_amount.Text, out withdraw_value)) // if textbox has a double format
+            bool proceed = false;
+
+            if (Double.TryParse(withdraw_amount.Text, out withdraw_value)) // if textbox has a double format
             {
                 if (withdraw_value > 0) //Check if the amount is greater than 0
                 {
-                    //Update the account in the database:
-                    Database.updateAccount(account_id, withdraw_value * -1); //Make withdraw value negative
+                    //Check if account allows overdraft
+                    if(withdraw_value > amount)
+                    {
+                        int type = Database.getAccountType(account_id);
 
+                        if(type == 0) //Doesn't allow overdraft
+                        {
+                            proceed = false;
+                        }
+                        else if(type == 1 && withdraw_value <= 5000) //Type 1 allows overdraft, but only 5000 at the time
+                        {
+                            proceed = true;
+                        }
+                        else if(type == 2 && withdraw_value < 100000) //Type 2 allows overdraft, but only 100000 at the time
+                        {
+                            proceed = true;
+                        }
+                    }
+                    else
+                    {
+                        proceed = true;
+                    }
 
-                    //Add the transaction to the database:
-                    Database.newTransaction(User.id, 0, account_id, 0, withdraw_value);
+                    if (proceed)
+                    {
+                        //Update the account in the database:
+                        Database.updateAccount(account_id, withdraw_value * -1); //Make withdraw value negative
+                        
+                        //Add the transaction to the database:
+                        Database.newTransaction(User.id, 0, account_id, 0, withdraw_value);
 
-                    transactions.Add(new Transaction() { from_user_id = User.id, to_user_id = 0, from_account_id = account_id, to_account_id = 0, amount = withdraw_value });
+                        transactions.Add(new Transaction() { from_user_id = User.id, to_user_id = 0, from_account_id = account_id, to_account_id = 0, amount = withdraw_value });
 
-                    transaction_list.ItemsSource = transactions;
+                        transaction_list.ItemsSource = transactions;
 
-                    //Updating userwindow
-                    Database.getAccountsByUserID(User.id);
-                    userwindow.updateList();
+                        //Update account total.
+                        amount -= withdraw_value;
+
+                        //Updating userwindow
+                        Database.getAccountsByUserID(User.id);
+                        userwindow.updateList();
+                    }
                 }
             }
         }

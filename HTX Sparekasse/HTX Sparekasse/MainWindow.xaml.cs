@@ -21,6 +21,7 @@ namespace HTX_Sparekasse
     public partial class MainWindow : Window
     {
         User user = new User();
+        private static UserWindow userwindow = new UserWindow();
         public MainWindow()
         {
             InitializeComponent();
@@ -44,8 +45,7 @@ namespace HTX_Sparekasse
                         }
                         else
                         {
-                            var newForm = new UserWindow();
-                            newForm.Show();
+                            userwindow.Show();
                             this.Close();
                         }
                     }
@@ -71,7 +71,6 @@ namespace HTX_Sparekasse
         {
             var newForm = new CreateUser();
             newForm.Show();
-            this.Close();
         }
     }
 }

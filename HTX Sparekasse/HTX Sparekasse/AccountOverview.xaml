@@ -28,7 +28,7 @@
         <Button x:Name="deposit_btn" Content="Indsæt Penge" HorizontalAlignment="Left" Margin="103,241,0,0" VerticalAlignment="Top" Width="81" Click="deposit_btn_Click"/>
         <Button x:Name="withdraw_btn" Content="Hæv Penge" HorizontalAlignment="Left" Margin="103,266,0,0" VerticalAlignment="Top" Width="81" Click="withdraw_btn_Click"/>
         <TextBox x:Name="deposit_amount" HorizontalAlignment="Left" Height="20" Margin="10,241,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="93"/>
-        <TextBox x:Name="widthdraw_amount" HorizontalAlignment="Left" Height="20" Margin="10,266,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="93"/>
+        <TextBox x:Name="withdraw_amount" HorizontalAlignment="Left" Height="20" Margin="10,266,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="93"/>
         <Button x:Name="delete_account" Content="Spær Konto" HorizontalAlignment="Left" Margin="276,241,0,0" VerticalAlignment="Top" Width="68" Height="45"/>
 
     </Grid>

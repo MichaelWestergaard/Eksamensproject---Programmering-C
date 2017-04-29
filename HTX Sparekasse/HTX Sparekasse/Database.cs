@@ -144,6 +144,33 @@ namespace HTX_Sparekasse
             connection.Close();
         }
 
+        public static int getAccountType(int account_id)
+        {
+            int type = 0;
+            connection.Open();
+            try
+            {
+                cmd = connection.CreateCommand();
+                cmd.CommandText = "SELECT type FROM bank_accounts WHERE id = @account_id";
+                cmd.Parameters.AddWithValue("@account_id", account_id);
+
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        type = reader.GetInt32("type");
+                    }
+                }
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return type;
+            connection.Close();
+        }
+
         public static void getTransactions(int id, int account_id)
         {
             connection.Open();

@@ -24,6 +24,7 @@ namespace HTX_Sparekasse
     /// </summary>
     public partial class UserWindow : Window
     {
+        public static AccountOverview accountoverview = new AccountOverview();
         public static List<Account> items = new List<Account>();
         public List<Valuta> valuta = new List<Valuta>();
         public string convertFrom, convertTo;
@@ -53,12 +54,6 @@ namespace HTX_Sparekasse
             valuta_list.ItemsSource = valuta; //Insert valuta into listview
 
         }
-        /*
-        public static void addToList(int id, string name, string transaction, double amount)
-        {
-            items.Add(new Account() { Account_id = id, Account_name = name, Last_transaction = transaction, Money_amount = amount });
-        }
-        */
 
         public void updateList()
         {
@@ -114,13 +109,12 @@ namespace HTX_Sparekasse
         {
 
             int list_index = account_list.SelectedIndex; //Get index of listview
-            AccountOverview.account_id = items[list_index].Account_id; //Get and set account id
-            AccountOverview.name = items[list_index].Account_name; //Get and set account name
-            AccountOverview.amount = items[list_index].Money_amount;
+            accountoverview.account_id = items[list_index].Account_id; //Get and set account id
+            accountoverview.name = items[list_index].Account_name; //Get and set account name
+            accountoverview.amount = items[list_index].Money_amount;
 
             //Go to account overview
-            var accountOverview = new AccountOverview();
-            accountOverview.Show();
+            accountoverview.Show();
 
         }
 

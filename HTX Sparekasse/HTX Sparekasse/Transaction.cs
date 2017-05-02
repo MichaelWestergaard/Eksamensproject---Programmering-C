@@ -8,10 +8,7 @@ namespace HTX_Sparekasse
 {
     public class Transaction
     {
-        public int from_user_id { get; set; }
-        public int to_user_id { get; set; }
-        public int from_account_id { get; set; }
-        public int to_account_id { get; set; }
+        public string message { get; set; }
         public double amount { get; set; }
     }
 }

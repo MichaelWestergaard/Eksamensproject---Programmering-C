@@ -19,8 +19,6 @@ namespace HTX_Sparekasse
     /// </summary>
     public partial class AccountOverview : Window
     {
-        private static UserWindow userwindow = new UserWindow();
-
         public List<Transaction> transactions = new List<Transaction>();
 
         public int account_id;
@@ -30,8 +28,6 @@ namespace HTX_Sparekasse
         public AccountOverview()
         {
             InitializeComponent();
-            account_name.Content = name;
-            money_amount.Content = amount + " kr.";
         }
 
         public void deposit_btn_Click(object sender, RoutedEventArgs e)
@@ -47,16 +43,19 @@ namespace HTX_Sparekasse
                     //Add the transaction to the database:
                     Database.newTransaction(0, User.id, 0, account_id, deposit_value);
 
-                    transactions.Add(new Transaction() { from_user_id = User.id, to_user_id = 0, from_account_id = account_id, to_account_id = 0, amount = deposit_value });
+                    transactions.Insert(0, new Transaction() { message = deposit_value + " blev indsat på kontoen. Du har nu " + (amount + deposit_value) + " på kontoen." });
 
                     transaction_list.ItemsSource = transactions;
+                    transaction_list.Items.Refresh();
 
                     //Update account total.
                     amount += deposit_value;
+                    money_amount.Content = "Saldo: " + amount + " kr.";
 
                     //Updating userwindow
+                    UserWindow userwindow = new UserWindow();
                     userwindow.updateList();
-                    userwindow.account_list.Items.Refresh();
+
                 }
             }
         }
@@ -83,7 +82,7 @@ namespace HTX_Sparekasse
                         {
                             proceed = true;
                         }
-                        else if(type == 2 && withdraw_value < 100000) //Type 2 allows overdraft, but only 100000 at the time
+                        else if(type == 2 && withdraw_value <= 100000) //Type 2 allows overdraft, but only 100000 at the time
                         {
                             proceed = true;
                         }
@@ -100,20 +99,32 @@ namespace HTX_Sparekasse
                         
                         //Add the transaction to the database:
                         Database.newTransaction(User.id, 0, account_id, 0, withdraw_value);
-
-                        transactions.Add(new Transaction() { from_user_id = User.id, to_user_id = 0, from_account_id = account_id, to_account_id = 0, amount = withdraw_value });
+                        
+                        transactions.Insert(0, new Transaction() { message = withdraw_value + " kr. blev hævet på kontoen. Du har nu " + (amount - withdraw_value) + " kr. på kontoen." }); //Insert because I want this on the op of the list
 
                         transaction_list.ItemsSource = transactions;
+                        transaction_list.Items.Refresh();
 
                         //Update account total.
                         amount -= withdraw_value;
+                        money_amount.Content = "Saldo: " + amount + " kr.";
 
                         //Updating userwindow
-                        Database.getAccountsByUserID(User.id);
-                        userwindow.updateList();
+                    } else
+                    {
+                        transactions.Insert(0, new Transaction() { message = "Der blev forsøgt at hæve " + withdraw_value + " kr., men der var ikke nok penge på kontoen." });
+
+                        transaction_list.ItemsSource = transactions;
+                        transaction_list.Items.Refresh();
                     }
                 }
             }
+        }
+
+        private void delete_account_Click(object sender, RoutedEventArgs e)
+        {
+            Database.deleteAccount(account_id);
+            this.Close();
         }
     }
 }

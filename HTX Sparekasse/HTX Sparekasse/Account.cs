@@ -10,7 +10,7 @@ namespace HTX_Sparekasse
     {
         public int Account_id { get; set; }
         public string Account_name { get; set; }
-        public string Last_transaction { get; set; }
+        public string Account_Type { get; set; }
         public double Money_amount { get; set; }
     }
 }

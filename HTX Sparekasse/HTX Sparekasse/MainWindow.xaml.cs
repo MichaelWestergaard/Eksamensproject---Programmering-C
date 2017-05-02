@@ -45,7 +45,8 @@ namespace HTX_Sparekasse
                         }
                         else
                         {
-                            userwindow.Show();
+                            var newForm = new UserWindow();
+                            newForm.Show();
                             this.Close();
                         }
                     }

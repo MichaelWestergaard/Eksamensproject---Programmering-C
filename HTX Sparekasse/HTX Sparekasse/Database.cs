@@ -19,6 +19,7 @@ namespace HTX_Sparekasse
         public static int to_user_id;
         public static int from_account_id;
         public static int to_account_id;
+        public static string AccountType;
 
         public static string getLastTransaction(int accountID)
         {
@@ -131,8 +132,23 @@ namespace HTX_Sparekasse
                 {
                     while (reader.Read())
                     {
-                        //UserWindow.addToList(reader.GetInt32("id"), reader.GetString("name"), reader.GetInt32("id").ToString(), reader.GetDouble("amount"));
-                        UserWindow.items.Add(new Account() { Account_id = reader.GetInt32("id"), Account_name = reader.GetString("name"), Last_transaction = reader.GetInt32("id").ToString(), Money_amount = reader.GetDouble("amount") });
+
+                        switch (reader.GetInt32("type"))
+                        {
+                            case 0:
+                                AccountType = "Normal";
+                                break;
+
+                            case 1:
+                                AccountType = "Plus Konto";
+                                break;
+
+                            case 2:
+                                AccountType = "Business Konto";
+                                break;
+                        }
+
+                        UserWindow.items.Add(new Account() { Account_id = reader.GetInt32("id"), Account_name = reader.GetString("name"), Account_Type = AccountType, Money_amount = reader.GetDouble("amount") });
                     }
                 }
 
@@ -162,13 +178,14 @@ namespace HTX_Sparekasse
                     }
                 }
 
+                connection.Close();
+                return type;
+
             }
             catch (Exception)
             {
                 throw;
             }
-            return type;
-            connection.Close();
         }
 
         public static void getTransactions(int id, int account_id)
@@ -185,8 +202,7 @@ namespace HTX_Sparekasse
                 {
                     while (reader.Read())
                     {
-                        //UserWindow.addToList(reader.GetInt32("id"), reader.GetString("name"), reader.GetInt32("id").ToString(), reader.GetDouble("amount"));
-                        UserWindow.items.Add(new Account() { Account_id = reader.GetInt32("id"), Account_name = reader.GetString("name"), Last_transaction = reader.GetInt32("id").ToString(), Money_amount = reader.GetDouble("amount") });
+                        UserWindow.items.Add(new Account() { Account_id = reader.GetInt32("id"), Account_name = reader.GetString("name"), Money_amount = reader.GetDouble("amount") });
                     }
                 }
 
@@ -240,6 +256,29 @@ namespace HTX_Sparekasse
             connection.Close();
         }
 
+        public static bool newAccount(int user_id, string name, int type)
+        {
+            connection.Open();
+            try
+            {
+                cmd = connection.CreateCommand();
+                cmd.CommandText = "INSERT INTO bank_accounts(user_id, name, type) VALUES (@user_id, @name, @type)";
+                cmd.Parameters.AddWithValue("@user_id", user_id);
+                cmd.Parameters.AddWithValue("@name", name);
+                cmd.Parameters.AddWithValue("@type", type);
+                cmd.ExecuteNonQuery();
+
+            }
+            
+            catch (Exception)
+            {
+                throw;
+            }
+
+            connection.Close();
+            return true;
+        }
+
         public static bool updateAccount(int account_id, double value)
         {
             connection.Open();
@@ -249,6 +288,25 @@ namespace HTX_Sparekasse
                 cmd.CommandText = "UPDATE bank_accounts SET amount = amount + @value WHERE id = @id";
                 cmd.Parameters.AddWithValue("@id", account_id);
                 cmd.Parameters.AddWithValue("@value", value);
+                cmd.ExecuteNonQuery();
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            connection.Close();
+            return true;
+        }
+
+        public static bool deleteAccount(int account_id)
+        {
+            connection.Open();
+            try
+            {
+                cmd = connection.CreateCommand();
+                cmd.CommandText = "DELETE FROM bank_accounts WHERE id = @id";
+                cmd.Parameters.AddWithValue("@id", account_id);
                 cmd.ExecuteNonQuery();
 
             }

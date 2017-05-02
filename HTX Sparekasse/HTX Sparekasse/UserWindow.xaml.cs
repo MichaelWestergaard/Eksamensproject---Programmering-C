@@ -24,7 +24,6 @@ namespace HTX_Sparekasse
     /// </summary>
     public partial class UserWindow : Window
     {
-        public static AccountOverview accountoverview = new AccountOverview();
         public static List<Account> items = new List<Account>();
         public List<Valuta> valuta = new List<Valuta>();
         public string convertFrom, convertTo;
@@ -36,8 +35,7 @@ namespace HTX_Sparekasse
             fullname.Content = User.fullname; //Set username
             date.Content = DateTime.Now.ToString(); //Set date  
 
-            Database.getAccountsByUserID(User.id); //Get and set bank accounts for this user id
-            account_list.ItemsSource = items; //Insert accounts into listview
+            updateList();
 
             string jsonUSD = GET("http://api.fixer.io/latest?base=USD&symbols=DKK"); //API call for USD, EUR and GBP
             string jsonEUR = GET("http://api.fixer.io/latest?base=EUR&symbols=DKK");
@@ -54,9 +52,60 @@ namespace HTX_Sparekasse
             valuta_list.ItemsSource = valuta; //Insert valuta into listview
 
         }
+        public static double interestRate;
+
+        public void calculateInterestRate(object sender, RoutedEventArgs e)
+        {
+            double amount = Convert.ToDouble(money_amount.Text);
+            DateTime date = DateTime.Today;
+            DateTime inputDate;
+
+            if (account_type.SelectedIndex > -1 && money_amount.Text != "" && end_date.SelectedDate.Value.ToString() != "")
+            {
+                switch (account_type.SelectedIndex)
+                {
+                    case 0:
+                        interestRate = 0.001;
+                        break;
+
+                    case 1:
+                        interestRate = 0.01;
+                        break;
+
+                    case 2:
+                        interestRate = 0.025;
+                        break;
+                }
+
+                //Find the difference in days
+
+                DateTime.TryParse(end_date.SelectedDate.Value.ToString(), out inputDate);
+                TimeSpan timespan = inputDate - date;
+
+                int daysDifference = timespan.Days;
+
+                //Calculate the total interest after x days
+                if (amount < 0)
+                {
+                    double total = amount * Math.Pow(1 + -interestRate / 365, daysDifference);
+                    double rate = total - amount;
+                    end_interest_rate.Text = Math.Round(rate, 2).ToString() + " kr.";
+                    Console.WriteLine(Math.Round(-total, 2).ToString());
+                }
+                else
+                {
+                    double total = amount * Math.Pow(1 + interestRate / 365, daysDifference);
+                    double rate = total - amount;
+                    end_interest_rate.Text = Math.Round(rate, 2).ToString() + " kr.";
+                    Console.WriteLine(Math.Round(total, 2).ToString());
+                }
+
+            }
+        }
 
         public void updateList()
         {
+            items.Clear();
             Database.getAccountsByUserID(User.id); //Get and set bank accounts for this user id
             account_list.ItemsSource = items; //Insert accounts into listview
             account_list.Items.Refresh();
@@ -108,16 +157,34 @@ namespace HTX_Sparekasse
         private void account_list_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
 
+            var accountoverview = new AccountOverview();
+
             int list_index = account_list.SelectedIndex; //Get index of listview
             accountoverview.account_id = items[list_index].Account_id; //Get and set account id
             accountoverview.name = items[list_index].Account_name; //Get and set account name
             accountoverview.amount = items[list_index].Money_amount;
 
+            accountoverview.account_name.Content = items[list_index].Account_name;
+            accountoverview.money_amount.Content = "Saldo: " + items[list_index].Money_amount + " kr.";
             //Go to account overview
             accountoverview.Show();
+            updateList();
 
         }
 
+        private void refresh_button_Click(object sender, RoutedEventArgs e)
+        {
+
+            updateList();
+            date.Content = DateTime.Now.ToString(); //Set date 
+        }
+
+        private void create_account_btn_Click(object sender, RoutedEventArgs e)
+        {
+            var newaccount = new NewAccount();
+            newaccount.Show();
+        }
+        
         public void updateValutaConverter()
         {
 

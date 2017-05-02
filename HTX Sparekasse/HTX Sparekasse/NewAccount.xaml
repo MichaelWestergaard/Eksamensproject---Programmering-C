@@ -1,0 +1,21 @@
+﻿<Window x:Class="HTX_Sparekasse.NewAccount"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HTX_Sparekasse"
+        mc:Ignorable="d"
+        Title="Opret Ny Konto" Height="212.924" Width="300">
+    <Grid>
+        <Label x:Name="label" Content="Konto Navn" HorizontalAlignment="Center" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="accountName" HorizontalAlignment="Center" Height="23" Margin="10,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150"/>
+        <Label x:Name="label_Copy" Content="Konto Type" HorizontalAlignment="Center" Margin="10,64,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="accountType" HorizontalAlignment="Center" Margin="10,95,0,0" VerticalAlignment="Top" Width="150">
+            <ComboBoxItem Content="Normal Konto" HorizontalAlignment="Left" Width="150"/>
+            <ComboBoxItem Content="Plus Konto" HorizontalAlignment="Left" Width="150"/>
+            <ComboBoxItem Content="Business Konto" HorizontalAlignment="Left" Width="150"/>
+        </ComboBox>
+        <Button x:Name="create_account_button" Content="Opret" HorizontalAlignment="Center" Margin="80,131,80,0" VerticalAlignment="Top" Width="120" Height="30" Click="create_account_button_Click"/>
+
+    </Grid>
+</Window>

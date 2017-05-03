@@ -126,5 +126,19 @@ namespace HTX_Sparekasse
             Database.deleteAccount(account_id);
             this.Close();
         }
+
+        private void transaction_btn_Click(object sender, RoutedEventArgs e)
+        {
+            var transactionWindow = new TransactionWindow();
+
+            transactionWindow.account_id = account_id;
+            transactionWindow.amount = amount;
+
+            transactionWindow.account_name.Content = name;
+            transactionWindow.money_amount.Content = "Saldo: " + amount + " kr.";
+
+            transactionWindow.Show();
+            this.Close();
+        }
     }
 }

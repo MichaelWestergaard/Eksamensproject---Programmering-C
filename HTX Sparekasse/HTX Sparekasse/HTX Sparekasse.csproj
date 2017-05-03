@@ -87,6 +87,9 @@
       <DependentUpon>NewAccount.xaml</DependentUpon>
     </Compile>
     <Compile Include="Transaction.cs" />
+    <Compile Include="TransactionWindow.xaml.cs">
+      <DependentUpon>TransactionWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserWindow.xaml.cs">
       <DependentUpon>UserWindow.xaml</DependentUpon>
     </Compile>
@@ -116,6 +119,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="NewAccount.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TransactionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

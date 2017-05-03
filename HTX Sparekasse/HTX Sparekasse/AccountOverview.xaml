@@ -23,7 +23,7 @@
 
         <Label x:Name="account_name" Content="Konto Navn" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="14"/>
         <Label x:Name="money_amount" Content="Saldo: 100 kr" HorizontalAlignment="Left" Margin="10,39,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="transaction_btn" Content="Overfør Penge" HorizontalAlignment="Left" Margin="229,241,0,0" VerticalAlignment="Top" Width="82" Height="45"/>
+        <Button x:Name="transaction_btn" Content="Overfør Penge" HorizontalAlignment="Left" Margin="229,241,0,0" VerticalAlignment="Top" Width="82" Height="45" Click="transaction_btn_Click"/>
         <Button x:Name="deposit_btn" Content="Indsæt Penge" HorizontalAlignment="Left" Margin="143,241,0,0" VerticalAlignment="Top" Width="81" Click="deposit_btn_Click"/>
         <Button x:Name="withdraw_btn" Content="Hæv Penge" HorizontalAlignment="Left" Margin="143,266,0,0" VerticalAlignment="Top" Width="81" Click="withdraw_btn_Click"/>
         <TextBox x:Name="deposit_amount" HorizontalAlignment="Left" Height="20" Margin="10,241,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="128"/>

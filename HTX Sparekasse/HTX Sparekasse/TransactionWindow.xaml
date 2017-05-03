@@ -1,0 +1,19 @@
+﻿<Window x:Class="HTX_Sparekasse.TransactionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HTX_Sparekasse"
+        mc:Ignorable="d"
+        Title="Overfør Penge" Height="250" Width="250">
+    <Grid>
+        <Label x:Name="account_name" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
+        <Label x:Name="money_amount" Content="" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <TextBox x:Name="amount_money_transaction" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="0,90,0,0" HorizontalContentAlignment="Center"/>
+        <TextBox x:Name="send_to_id" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="0,139,0,0" HorizontalContentAlignment="Center"/>
+        <Label x:Name="label" Content="Beløb" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="61,59,0,0" HorizontalContentAlignment="Center"/>
+        <Label x:Name="label_Copy" Content="Modtager (Konto id)" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,113,0,0"/>
+        <Button x:Name="make_transaction_button" Content="Send" HorizontalAlignment="Center" Margin="0,167,0,0" VerticalAlignment="Top" Width="120" Height="30" Click="make_transaction_button_Click"/>
+
+    </Grid>
+</Window>

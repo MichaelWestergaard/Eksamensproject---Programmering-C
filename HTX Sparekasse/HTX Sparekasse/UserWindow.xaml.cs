@@ -90,14 +90,12 @@ namespace HTX_Sparekasse
                     double total = amount * Math.Pow(1 + -interestRate / 365, daysDifference);
                     double rate = total - amount;
                     end_interest_rate.Text = Math.Round(rate, 2).ToString() + " kr.";
-                    Console.WriteLine(Math.Round(-total, 2).ToString());
                 }
                 else
                 {
                     double total = amount * Math.Pow(1 + interestRate / 365, daysDifference);
                     double rate = total - amount;
                     end_interest_rate.Text = Math.Round(rate, 2).ToString() + " kr.";
-                    Console.WriteLine(Math.Round(total, 2).ToString());
                 }
 
             }
@@ -174,7 +172,6 @@ namespace HTX_Sparekasse
 
         private void refresh_button_Click(object sender, RoutedEventArgs e)
         {
-
             updateList();
             date.Content = DateTime.Now.ToString(); //Set date 
         }

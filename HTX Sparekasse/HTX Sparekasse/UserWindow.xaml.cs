@@ -52,10 +52,10 @@ namespace HTX_Sparekasse
             valuta_list.ItemsSource = valuta; //Insert valuta into listview
 
         }
-        public static double interestRate;
 
         public void calculateInterestRate(object sender, RoutedEventArgs e)
         {
+            double interestRate = 0.0, total = 0.0;
             double amount = Convert.ToDouble(money_amount.Text);
             DateTime date = DateTime.Today;
             DateTime inputDate;
@@ -82,22 +82,11 @@ namespace HTX_Sparekasse
                 DateTime.TryParse(end_date.SelectedDate.Value.ToString(), out inputDate);
                 TimeSpan timespan = inputDate - date;
 
-                int daysDifference = timespan.Days;
+                int n = timespan.Days / 365; //Convert to years
 
-                //Calculate the total interest after x days
-                if (amount < 0)
-                {
-                    double total = amount * Math.Pow(1 + -interestRate / 365, daysDifference);
-                    double rate = total - amount;
-                    end_interest_rate.Text = Math.Round(rate, 2).ToString() + " kr.";
-                }
-                else
-                {
-                    double total = amount * Math.Pow(1 + interestRate / 365, daysDifference);
-                    double rate = total - amount;
-                    end_interest_rate.Text = Math.Round(rate, 2).ToString() + " kr.";
-                }
-
+                //Calculate the total interest
+                total = amount * Math.Pow(1 + interestRate, n);
+                end_interest_rate.Text = total + " kr.";
             }
         }
 

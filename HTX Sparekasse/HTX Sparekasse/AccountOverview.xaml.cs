@@ -51,11 +51,7 @@ namespace HTX_Sparekasse
                     //Update account total.
                     amount += deposit_value;
                     money_amount.Content = "Saldo: " + amount + " kr.";
-
-                    //Updating userwindow
-                    UserWindow userwindow = new UserWindow();
-                    userwindow.updateList();
-
+                    
                 }
             }
         }

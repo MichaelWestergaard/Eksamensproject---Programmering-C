@@ -1,0 +1,34 @@
+﻿<Window x:Class="HTX_Sparekasse.AccountOverview"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HTX_Sparekasse"
+        mc:Ignorable="d"
+        Title="Konto Oversigt" ResizeMode="NoResize" Height="329.642" Width="408">
+    <Grid HorizontalAlignment="Left" Width="402" Height="301" VerticalAlignment="Top">
+
+        <ListView x:Name="transaction_list" HorizontalAlignment="Left" Height="166" Margin="12,70,0,0" VerticalAlignment="Top" Width="372" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Overførsel" Width="372" DisplayMemberBinding="{Binding message}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <Label x:Name="account_name" Content="Konto Navn" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="14"/>
+        <Label x:Name="money_amount" Content="Saldo: 100 kr" HorizontalAlignment="Left" Margin="10,39,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="transaction_btn" Content="Overfør Penge" HorizontalAlignment="Left" Margin="229,241,0,0" VerticalAlignment="Top" Width="82" Height="45" Click="transaction_btn_Click"/>
+        <Button x:Name="deposit_btn" Content="Indsæt Penge" HorizontalAlignment="Left" Margin="143,241,0,0" VerticalAlignment="Top" Width="81" Click="deposit_btn_Click"/>
+        <Button x:Name="withdraw_btn" Content="Hæv Penge" HorizontalAlignment="Left" Margin="143,266,0,0" VerticalAlignment="Top" Width="81" Click="withdraw_btn_Click"/>
+        <TextBox x:Name="deposit_amount" HorizontalAlignment="Left" Height="20" Margin="10,241,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="128"/>
+        <TextBox x:Name="withdraw_amount" HorizontalAlignment="Left" Height="20" Margin="10,266,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="128"/>
+        <Button x:Name="delete_account" Content="Spær Konto" HorizontalAlignment="Left" Margin="316,241,0,0" VerticalAlignment="Top" Width="68" Height="45" Click="delete_account_Click"/>
+
+    </Grid>
+</Window>

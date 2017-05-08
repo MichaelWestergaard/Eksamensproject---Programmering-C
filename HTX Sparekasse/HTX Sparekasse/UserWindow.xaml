@@ -10,17 +10,13 @@
 
     <Grid>
 
-        <TabControl x:Name="tabControl" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <TabControl x:Name="tabControl" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="252">
             <TabItem Header="Betjeningspanel" Margin="-2,0">
                 <Grid Background="#FFE5E5E5" Margin="-2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="17*"/>
-                        <ColumnDefinition Width="108*"/>
-                    </Grid.ColumnDefinitions>
-                    <Separator HorizontalAlignment="Left" Height="12" Margin="0,14,-55,0" VerticalAlignment="Top" Width="930" Grid.ColumnSpan="2"/>
+                    <Separator HorizontalAlignment="Left" Height="12" Margin="0,14,-55,0" VerticalAlignment="Top" Width="930" Grid.ColumnSpan="3"/>
                     <Label x:Name="fullname" Content="Name" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="127" Margin="0,-4,0,0" Grid.ColumnSpan="2"/>
-                    <Label x:Name="date" Content="01-01-2017" HorizontalAlignment="Left" Margin="614,0,0,0" VerticalAlignment="Top" Width="122" FontWeight="Light" TextOptions.TextHintingMode="Animated" HorizontalContentAlignment="Right" Grid.Column="1"/>
-                    <ListView x:Name="account_list" HorizontalAlignment="Left" Height="120" Margin="10,67,0,0" VerticalAlignment="Top" Width="581" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Grid.ColumnSpan="2">
+                    <Label x:Name="date" Content="01-01-2017" HorizontalAlignment="Left" Margin="743,0,0,0" VerticalAlignment="Top" Width="122" FontWeight="Light" TextOptions.TextHintingMode="Animated" HorizontalContentAlignment="Right"/>
+                    <ListView x:Name="account_list" MouseDoubleClick="account_list_MouseDoubleClick" HorizontalAlignment="Left" Height="120" Margin="10,67,0,0" VerticalAlignment="Top" Width="600" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Grid.ColumnSpan="3">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -28,13 +24,13 @@
                         </ListView.ItemContainerStyle>
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Konto Navn" Width="100"  DisplayMemberBinding="{Binding Account_name}" />
-                                <GridViewColumn Header="Seneste Handling" Width="400" DisplayMemberBinding="{Binding Last_transaction}"/>
-                                <GridViewColumn Header="Sum" Width="75" DisplayMemberBinding="{Binding Money_amount}" />
+                                <GridViewColumn Header="Konto Navn" Width="200"  DisplayMemberBinding="{Binding Path=Account_name}" />
+                                <GridViewColumn Header="Konto Type" Width="200" DisplayMemberBinding="{Binding Account_Type}"/>
+                                <GridViewColumn Header="Sum" Width="200" DisplayMemberBinding="{Binding Money_amount}" />
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    <ListView x:Name="valuta_list" HorizontalAlignment="Left" Height="120" Margin="576,67,0,0" VerticalAlignment="Top" Width="160" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Grid.Column="1">
+                    <ListView x:Name="valuta_list" HorizontalAlignment="Left" Height="120" Margin="705,67,0,0" VerticalAlignment="Top" Width="160" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="{x:Type ListViewItem}">
                                 <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -47,18 +43,32 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    <Label x:Name="label" Content="Valuta Kurser" HorizontalAlignment="Left" Margin="576,30,0,0" VerticalAlignment="Top" FontSize="20" Grid.Column="1"/>
+                    <Label x:Name="label" Content="Valuta Kurser" HorizontalAlignment="Left" Margin="705,30,0,0" VerticalAlignment="Top" FontSize="20"/>
                     <Label x:Name="label_Copy" Content="Konto Oversigt" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top" FontSize="20" Grid.ColumnSpan="2"/>
-                    <Button x:Name="create_account_btn" Content="Opret Ny Konto" HorizontalAlignment="Left" Margin="10,192,0,0" VerticalAlignment="Center" Width="99"/>
-                    <Button x:Name="insert_money_btn" Content="Indsæt Penge" HorizontalAlignment="Left" Margin="114,192,0,0" VerticalAlignment="Center" Width="79" Grid.ColumnSpan="2"/>
-                    <Button x:Name="make_transaction_btn" Content="Overfør Penge" Grid.Column="1" HorizontalAlignment="Left" Margin="79,192,0,0" VerticalAlignment="Center" Width="86"/>
+                    <Button x:Name="create_account_btn" Content="Opret Ny Konto" HorizontalAlignment="Left" Margin="431,192,0,8" VerticalAlignment="Center" Width="99" Height="28" Click="create_account_btn_Click"/>
+                    <Button x:Name="refresh_button" Content="Refresh" HorizontalAlignment="Left" Margin="535,192,0,0" VerticalAlignment="Top" Width="75" Click="refresh_button_Click" Height="28"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Overførsler" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="72" Margin="1,0,-1,0">
-                <Grid Background="#FFE5E5E5" Margin="-2"/>
+            <TabItem Header="Rente Beregner" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="94" Margin="1,0,-23,0">
+                <Grid Background="#FFE5E5E5" Margin="-2">
+                    <DatePicker x:Name="end_date" HorizontalAlignment="Left" Margin="490,64,0,0" VerticalAlignment="Top" Width="150" Height="30" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Padding="2" UseLayoutRounding="True" FontSize="14"/>
+                    <ComboBox x:Name="account_type" HorizontalAlignment="Left" Margin="180,64,0,0" VerticalAlignment="Top" Width="150" Height="30" HorizontalContentAlignment="Center">
+                        <ComboBoxItem Content="Normal Konto" HorizontalAlignment="Left" Width="148"/>
+                        <ComboBoxItem Content="Plus Konto" HorizontalAlignment="Left" Width="148"/>
+                        <ComboBoxItem Content="Business Konto" HorizontalAlignment="Left" Width="148"/>
+                    </ComboBox>
+                    <Label x:Name="label2" Content="Konto Type" HorizontalAlignment="Left" Margin="180,38,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" RenderTransformOrigin="0.443,0.462"/>
+                    <Label x:Name="label3" Content="Penge på Konto" HorizontalAlignment="Left" Margin="335,38,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center"/>
+                    <TextBox x:Name="money_amount" HorizontalAlignment="Left" Height="30" Margin="335,64,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="150" VerticalContentAlignment="Center" FontSize="14" HorizontalContentAlignment="Center"/>
+                    <Label x:Name="label4" Content="Beregn renter fra i dag til:" HorizontalAlignment="Left" Margin="490,38,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center"/>
+                    <TextBox x:Name="end_interest_rate" HorizontalAlignment="Left" IsEnabled="False" Height="39" Margin="335,141,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="200" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Button x:Name="button" Content="Beregn" HorizontalAlignment="Left" Margin="540,141,0,0" VerticalAlignment="Top" Width="100" Click="calculateInterestRate" Height="39"/>
+                    <Label x:Name="label5" Content="Renter:" HorizontalAlignment="Left" Margin="335,115,0,0" VerticalAlignment="Top"/>
+                </Grid>
+
             </TabItem>
-            <TabItem Header="Valuta Omregner" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="104" Margin="0,0,-60,0">
-                <Grid Background="#FFE5E5E5" Margin="-8">
+            <TabItem Header="Valuta Omregner" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="104" Margin="0">
+                <Grid Background="#FFE5E5E5" Margin="-8,-2,-8,-8">
                     <TextBox x:Name="amount_input" HorizontalAlignment="Center" Height="44" Margin="207,34,218,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="450" FontSize="20" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" TextChanged="amount_input_TextChanged"/>
                     <ComboBox x:Name="from_valuta" HorizontalAlignment="Center" Margin="207,88,495,0" VerticalAlignment="Top" Width="173" Height="42" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SelectionChanged="from_valuta_SelectionChanged">
                         <ComboBoxItem Content="DKK" HorizontalAlignment="Left" Width="171"/>

@@ -73,7 +73,7 @@
                         <ComboBoxItem Content="GBP"/>
                     </ComboBox>
                     <Label x:Name="label1" Content="Til" HorizontalAlignment="Center" Margin="414,83,421,0" VerticalAlignment="Top" Height="56" Width="40" FontSize="24" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-                    <TextBox x:Name="converted_amount" HorizontalAlignment="Center" Height="44" Margin="207,135,218,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="450" FontSize="20" IsEnabled="False" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <TextBox x:Name="converted_amount" HorizontalAlignment="Center" Height="44" Margin="207,135,218,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="450" FontSize="20" IsEnabled="False" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
                 </Grid>
             </TabItem>
         </TabControl>
